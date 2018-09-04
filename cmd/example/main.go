@@ -13,9 +13,10 @@ func main() {
 	exit.Handle(func() { log.Println("Exit function(A)") })
 	// loop forever and exit gracefully when CTRL+C
 	for _ = range time.NewTicker(time.Second).C {
+		log.Println("Wait for CTRL+C")
 		if exit.Come() {
 			break
 		}
-		log.Println("Wait for CTRL+C")
 	}
+	exit.Wait()
 }

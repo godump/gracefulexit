@@ -12,11 +12,13 @@ package exit
 import (
 	"os"
 	"os/signal"
+	"sync"
 )
 
 var (
 	exitCome     bool
 	exitHandlers []func()
+	exitWg       sync.WaitGroup
 )
 
 // Handle register func as a function to be executed at termination(usually
@@ -25,12 +27,18 @@ var (
 // registered; if you register A, B, and C, at interpreter termination time
 // they will be run in the order C, B, A.
 func Handle(f func()) {
+	exitWg.Add(1)
 	exitHandlers = append(exitHandlers, f)
 }
 
 // Come return true if the SIGINT has been received.
 func Come() bool {
 	return exitCome
+}
+
+// Wait for all callback functions to complete
+func Wait() {
+	exitWg.Wait()
 }
 
 func init() {
@@ -43,6 +51,7 @@ func init() {
 		for i := 0; i < size; i++ {
 			h := exitHandlers[size-i-1]
 			h()
+			exitWg.Done()
 		}
 	}()
 }
