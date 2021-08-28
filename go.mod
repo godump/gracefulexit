@@ -1,3 +1,3 @@
-module github.com/mohanson/gracefulexit
+module github.com/godump/gracefulexit
 
-go 1.14
+go 1.17

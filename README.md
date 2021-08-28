@@ -1,3 +1,3 @@
-# Package gracefulexit
+# Gracefulexit
 
-See: [https://godoc.org/github.com/mohanson/gracefulexit](https://godoc.org/github.com/mohanson/gracefulexit)
+Doc: [https://godoc.org/github.com/godump/gracefulexit](https://godoc.org/github.com/godump/gracefulexit)
